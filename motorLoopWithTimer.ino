@@ -1,13 +1,9 @@
-
-/*
- */
-
 #include <Servo.h>
 #include <StopWatch.h>
 
 int pushButtonUp = 4;// YELLOW button, declare which pin is for pushButtonUp
 int pushButtonDown = 8;// BLUE button, declare which pin is for pushButtonUp
-int pushButtonEStop = 13;// declare which pin is for pushButtonEstop
+int buttonEStop = 13;// declare which pin is for buttonEStop
 
 int upButtonState = 0;
 int downButtonState = 0;
@@ -39,7 +35,7 @@ void setup() {
   pinMode (pwmOutput, OUTPUT);
   pinMode (pushButtonUp, INPUT);
   pinMode (pushButtonDown, INPUT);
-  pinMode (pushButtonEStop, INPUT);
+  pinMode (buttonEStop, INPUT);
   
   myservo.attach(3);
   
@@ -50,7 +46,7 @@ void loop() {
   firstLoop = true;
   upButtonState = digitalRead(pushButtonUp);
   downButtonState = digitalRead(pushButtonDown);
-  eStopButtonState = digitalRead(pushButtonEStop);
+  eStopButtonState = digitalRead(buttonEStop);
   
   if (firstLoop == true){
     delay(100); // 250 milliseconds delay (1/4 second delay)
@@ -61,7 +57,8 @@ void loop() {
   }
 
   while (eStopButtonState === 1) {
-    eStopButtonState = digitalRead(pushButtonEStop);
+    eStopButtonState = digitalRead(buttonEStop);
+    myservo.writeMicroseconds(restPower);
   }
 
   while (upButtonState == 1 && downButtonState != 1 && finishedOperation == false && reachedTop == false) {
@@ -74,9 +71,12 @@ void loop() {
     myservo.writeMicroseconds(upPower);
 
     upButtonState = digitalRead(pushButtonUp);
-    eStopButtonState = digitalRead(pushButtonEStop);
+    eStopButtonState = digitalRead(buttonEStop);
 
-    if (eStopButtonState === 1) break;
+    if (eStopButtonState === 1) {
+      myservo.writeMicroseconds(restPower);
+      break;
+    }
 
     //if top position reached
     if (MySW.elapsed() > remainingUpTime && noTimeLimit == false) {
@@ -128,9 +128,12 @@ void loop() {
     myservo.writeMicroseconds(downPower);
 
     downButtonState = digitalRead(pushButtonDown);
-    eStopButtonState = digitalRead(pushButtonEStop);
+    eStopButtonState = digitalRead(buttonEStop);
 
-    if (eStopButtonState === 1) break;
+    if (eStopButtonState === 1) {
+      myservo.writeMicroseconds(restPower);
+      break;
+    }
 
     //if bottom position reached
     if (MySW.elapsed() > remainingDownTime && noTimeLimit == false) {
