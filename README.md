@@ -3,6 +3,10 @@
 - This technology is commonly seen in hospitals and nursing homes, which require assistance from the nurse for the mechanism to be safe. These lifts lift 100% of the body load, over a long period of time (20 seconds +)
 - Our team noticed that in many cultures (we have a diverse team!), grandparents are NOT sent to nursing homes, but prefer to live at home with the family. As a result, they throw themselves onto chairs / couches, and ask for family members to help them up. This commonly leads to bone fractures.
 
+## Awards
+- $1300: Velocity Fund, in partnership with Ontario’s Ministry for Seniors and Accessibility (MSAA)
+- $1375: Canadian Posture & Seating Centre Scholarship
+
 ## Our Product ...
 - Safe
 - Self-operated
